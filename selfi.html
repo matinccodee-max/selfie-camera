@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Selfie Camera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            background: #0f172a;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        video {
+            width: 90%;
+            max-width: 500px;
+            border-radius: 16px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            display: none;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 14px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            background: #22c55e;
+            color: #052e16;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>دوربین سلفی آیپد</h1>
+
+    <video id="camera" autoplay playsinline></video>
+
+    <button onclick="startCamera()">روشن کردن دوربین</button>
+
+    <script>
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "user"
+                    },
+                    audio: false
+                });
+
+                const video = document.getElementById("camera");
+                video.srcObject = stream;
+                video.style.display = "block";
+            } catch (err) {
+                alert("اجازه دسترسی به دوربین داده نشد");
+                console.error(err);
+            }
+        }
+    </script>
+
+</body>
+</html>
